@@ -1,3 +1,5 @@
+from http.client import HTTPException
+
 from fastapi import Query
 
 from fastapi import APIRouter, Depends
@@ -17,6 +19,7 @@ async def get_categories(skip: int = 0, limit: int = 100, db: AsyncSession = Dep
         "data": categories
     }
 
+
 @router.get("/list")
 async def get_news_list(
         category_id: int = Query(..., alias = "categoryId"),
@@ -35,5 +38,33 @@ async def get_news_list(
             "list" : new_list,
             "total" : total,
             "hasMore" : has_more
+        }
+    }
+
+@router.get("/detail")
+async def get_news_detail(news_id: int = Query(..., alias="id"), db: AsyncSession = Depends(get_db)):
+    news_detail = await news.get_news_detail(db, news_id)
+    if not news_detail:
+        raise HTTPException(status_code=404, detail="news not found")
+
+    views_res = await news.increase_news_views(db,news_detail.id)
+    if not views_res:
+        raise HTTPException(status_code=404, detail="news not found")
+
+    related_news = await news.get_news_list(db,news_detail.id, news_detail.category_id)
+
+    return {
+        "code" : 200,
+        "message": "success",
+        "data": {
+            "id": news_detail.id,
+            "title": news_detail.title,
+            "content": news_detail.content,
+            "image": news_detail.image,
+            "author": news_detail.author,
+            "publishTime": news_detail.publish_time,
+            "categoryId": news_detail.category_id,
+            "views": news_detail.views,
+            "relatedNews": related_news
         }
     }
