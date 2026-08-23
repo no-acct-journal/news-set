@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 
-from routers import news
+from routers import news, users
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from utils.exception_handlers import register_exception_handlers
+
 app = FastAPI()
+
+register_exception_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +24,7 @@ async def root():
 
 ## register news router
 app.include_router(news.router)
+app.include_router(users.router)
 
 
 @app.get("/hello/{name}")
