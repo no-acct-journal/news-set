@@ -9,7 +9,7 @@ from models.news import News
 
 async def add_history(db: AsyncSession, user_id: int, news_id: int):
     """
-    添加历史记录
+    Add a browsing history entry.
     """
     query = select(History).where(History.user_id == user_id, History.news_id == news_id)
     result = await db.execute(query)
@@ -44,11 +44,11 @@ async def get_history_list(db: AsyncSession, user_id: int, page: int = 1, page_s
     return rows, total
 
 
-async def delete_history(db: AsyncSession, user_id: int, news_id: int):
+async def delete_history(db: AsyncSession, user_id: int, history_id: int):
     """
-    删除历史记录
+    Delete a browsing history entry.
     """
-    query = delete(History).where(History.user_id == user_id, History.news_id == news_id)
+    query = delete(History).where(History.user_id == user_id, History.id == history_id)
     result = await db.execute(query)
     await db.commit()
 
@@ -57,7 +57,7 @@ async def delete_history(db: AsyncSession, user_id: int, news_id: int):
 
 async def clear_history(db: AsyncSession, user_id: int):
     """
-    清空历史记录
+    Clear browsing history.
     """
     query = delete(History).where(History.user_id == user_id)
     result = await db.execute(query)

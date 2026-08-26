@@ -1,18 +1,14 @@
-from http.client import HTTPException
-
-from fastapi import Query
-
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.db_config import get_db
-from service import news
+from service import news_cache as news
 
 router = APIRouter(prefix="/api/news", tags=["news"])
 
 @router.get("/categories")
 async def get_categories(skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db)):
-    categories = await news.get_category(db, skip, limit)
+    categories = await news.get_categories(db, skip, limit)
     return {
         "code" : 200,
         "message": "success",
@@ -51,7 +47,7 @@ async def get_news_detail(news_id: int = Query(..., alias="id"), db: AsyncSessio
     if not views_res:
         raise HTTPException(status_code=404, detail="news not found")
 
-    related_news = await news.get_news_list(db,news_detail.id, news_detail.category_id)
+    related_news = await news.get_related_news(db, news_detail.id, news_detail.category_id)
 
     return {
         "code" : 200,

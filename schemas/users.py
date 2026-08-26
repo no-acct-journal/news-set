@@ -6,39 +6,37 @@ class UserRequest(BaseModel):
     username: str
     password: str
 
-# user_info 对应的类：基础类 + Info 类（id、用户名）
+# Base user profile fields used by userInfo responses.
 class UserInfoBase(BaseModel):
     """
-    用户信息基础数据模型
+    Base user profile data model.
     """
-    nickname: Optional[str] = Field(None, max_length=50, description="昵称")
-    avatar: Optional[str] = Field(None, max_length=255, description="头像URL")
-    gender: Optional[str] = Field(None, max_length=10, description="性别")
-    bio: Optional[str] = Field(None, max_length=500, description="个人简介")
+    nickname: Optional[str] = Field(None, max_length=50, description="Nickname")
+    avatar: Optional[str] = Field(None, max_length=255, description="Avatar URL")
+    gender: Optional[str] = Field(None, max_length=10, description="Gender")
+    bio: Optional[str] = Field(None, max_length=500, description="Bio")
 
 
 class UserInfoResponse(UserInfoBase):
     id: int
     username: str
 
-    # 模型类配置
     model_config = ConfigDict(
-        from_attributes=True  # 允许从 ORM 对象属性中取值
+        from_attributes=True
     )
 
 
-# data 数据类型
+# Authentication response payload.
 class UserAuthResponse(BaseModel):
     token: str
     user_info: UserInfoResponse = Field(..., alias="userInfo")
 
-    # 模型类配置
     model_config = ConfigDict(
-        populate_by_name=True,  # alias / 字段名兼容
-        from_attributes=True  # 允许从 ORM 对象属性中取值
+        populate_by_name=True,
+        from_attributes=True
     )
 
-# 更新用户信息的模型类
+# User profile update request.
 class UserUpdateRequest(BaseModel):
     nickname: str = None
     avatar: str = None
@@ -47,5 +45,5 @@ class UserUpdateRequest(BaseModel):
     phone: str = None
 
 class UserChangePasswordRequest(BaseModel):
-    old_password: str = Field(..., alias="oldPassword", description="旧密码")
-    new_password: str = Field(..., min_length=6, alias="newPassword", description="新密码")
+    old_password: str = Field(..., alias="oldPassword", description="Old password")
+    new_password: str = Field(..., min_length=6, alias="newPassword", description="New password")

@@ -6,19 +6,17 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-ASYNC_DATABASE_URL = (
-    "postgresql+asyncpg://postgres:1234@localhost:5432/postgres"
-)
+from config.settings import settings
 
 async_engine = create_async_engine(
-    ASYNC_DATABASE_URL,
-    echo=True,
+    settings.database_url,
+    echo=settings.sqlalchemy_echo,
     pool_size=10,
     max_overflow=20,
     pool_pre_ping=True,
     connect_args={
         "server_settings": {
-            "search_path": '"news-set"'
+            "search_path": settings.database_schema
         }
     },
 )

@@ -18,7 +18,7 @@ async def get_user_by_username(db: AsyncSession, username: str):
 
 #Create user
 async def create_user(db: AsyncSession, user_data: UserRequest):
-    hashed_password = security.get_hash_password(user_data.password)
+    hashed_password = security.get_password_hash(user_data.password)
     user = User(username = user_data.username, password = hashed_password)
     db.add(user)
     await db.commit()
@@ -50,7 +50,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str):
 
     return user
 
-# 根据 Token 查询用户：验证 Token → 查询用户
+# Resolve a user by token.
 async def get_user_by_token(db: AsyncSession, token: str):
     query = select(UserToken).where(UserToken.token == token)
     result = await db.execute(query)
@@ -64,9 +64,7 @@ async def get_user_by_token(db: AsyncSession, token: str):
     return result.scalar_one_or_none()
 
 async def update_user(db: AsyncSession, username: str, user_data: UserUpdateRequest):
-    # update(User).where(User.username == username).values(字段=值, 字段=值)
-    # user_data 是一个Pydantic类型，得到字典 → ** 解包
-    # 没有设置值的不更新
+    # Only update fields that were provided by the client.
     query = update(User).where(User.username == username).values(**user_data.model_dump(
         exclude_unset=True,
         exclude_none=True
@@ -74,11 +72,11 @@ async def update_user(db: AsyncSession, username: str, user_data: UserUpdateRequ
     result = await db.execute(query)
     await db.commit()
 
-    # 检查更新
+    # Check whether a row was updated.
     if result.rowcount == 0:
-        raise HTTPException(status_code=404, detail="用户不存在")
+        raise HTTPException(status_code=404, detail="User not found")
 
-    # 获取一下更新后的用户
+    # Return the updated user.
     updated_user = await get_user_by_username(db, username)
     return updated_user
 
@@ -86,10 +84,9 @@ async def change_password(db: AsyncSession, user: User, old_password: str, new_p
     if not security.verify_password(old_password, user.password):
         return False
 
-    hashed_new_pwd = security.get_hash_password(new_password)
+    hashed_new_pwd = security.get_password_hash(new_password)
     user.password = hashed_new_pwd
-    # 更新: 由SQLAlchemy真正接管这个 User 对象，确保可以 commit
-    # 规避 session 过期或关闭导致的不能提交的问题
+    # Reattach the user object to the session before committing.
     db.add(user)
     await db.commit()
     await db.refresh(user)

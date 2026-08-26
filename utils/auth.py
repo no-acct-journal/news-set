@@ -6,7 +6,7 @@ from config.db_config import get_db
 from service import users
 
 
-# 整合 根据 Token 查询用户，返回用户
+# Resolve the current user from the Authorization token.
 async def get_current_user(
         authorization: str = Header(..., alias="Authorization"),
         db: AsyncSession = Depends(get_db)
@@ -16,6 +16,6 @@ async def get_current_user(
     token = authorization.replace("Bearer ", "")
     user = await users.get_user_by_token(db, token)
     if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="无效的令牌或已经过期的令牌")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
 
     return user

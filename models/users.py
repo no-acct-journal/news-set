@@ -10,7 +10,7 @@ class Base(DeclarativeBase):
 
 
 class User(Base):
-    """用户信息表 ORM 模型。"""
+    """User profile ORM model."""
 
     __tablename__ = "user"
 
@@ -23,61 +23,61 @@ class User(Base):
         Integer,
         primary_key=True,
         autoincrement=True,
-        comment="用户ID",
+        comment="User ID",
     )
 
     username: Mapped[str] = mapped_column(
         String(50),
         unique=True,
         nullable=False,
-        comment="用户名",
+        comment="Username",
     )
 
     password: Mapped[str] = mapped_column(
         String(255),
         nullable=False,
-        comment="密码（加密存储）",
+        comment="Hashed password",
     )
 
     nickname: Mapped[Optional[str]] = mapped_column(
         String(50),
         nullable=True,
-        comment="昵称",
+        comment="Nickname",
     )
 
     avatar: Mapped[Optional[str]] = mapped_column(
         String(255),
         nullable=True,
         default="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg",
-        comment="头像URL",
+        comment="Avatar URL",
     )
 
     gender: Mapped[Optional[str]] = mapped_column(
         Enum("male", "female", "unknown", name="user_gender_enum"),
         nullable=True,
         default="unknown",
-        comment="性别",
+        comment="Gender",
     )
 
     bio: Mapped[Optional[str]] = mapped_column(
         String(500),
         nullable=True,
-        default="这个人很懒，什么都没留下",
-        comment="个人简介",
+        default="This user has not added a bio yet.",
+        comment="Bio",
     )
 
     phone: Mapped[Optional[str]] = mapped_column(
         String(20),
         unique=True,
         nullable=True,
-        comment="手机号",
+        comment="Phone number",
     )
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.now,
         nullable=False,
-        comment="创建时间",
+        comment="Created at",
     )
 
     updated_at: Mapped[datetime] = mapped_column(
@@ -85,7 +85,7 @@ class User(Base):
         default=datetime.now,
         onupdate=datetime.now,
         nullable=False,
-        comment="更新时间",
+        comment="Updated at",
     )
 
     def __repr__(self) -> str:
@@ -99,7 +99,7 @@ class User(Base):
 
 
 class UserToken(Base):
-    """用户令牌表 ORM 模型。"""
+    """User token ORM model."""
 
     __tablename__ = "user_token"
 
@@ -112,34 +112,34 @@ class UserToken(Base):
         Integer,
         primary_key=True,
         autoincrement=True,
-        comment="令牌ID",
+        comment="Token ID",
     )
 
     user_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey("user.id"),
         nullable=False,
-        comment="用户ID",
+        comment="User ID",
     )
 
     token: Mapped[str] = mapped_column(
         String(255),
         unique=True,
         nullable=False,
-        comment="令牌值",
+        comment="Token value",
     )
 
     expires_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
-        comment="过期时间",
+        comment="Expiration time",
     )
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.now,
         nullable=False,
-        comment="创建时间",
+        comment="Created at",
     )
 
     def __repr__(self) -> str:

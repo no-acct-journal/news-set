@@ -11,21 +11,20 @@ class Base(DeclarativeBase):
 
 class History(Base):
     """
-    浏览历史表ORM模型
+    Browsing history ORM model.
     """
     __tablename__ = 'history'
 
-    # 创建索引
     __table_args__ = (
         Index('fk_history_user_idx', 'user_id'),
         Index('fk_history_news_idx', 'news_id'),
         Index('idx_view_time', 'view_time'),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True, comment="历史ID")
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey(User.id), nullable=False, comment="用户ID")
-    news_id: Mapped[int] = mapped_column(Integer, ForeignKey(News.id), nullable=False, comment="新闻ID")
-    view_time: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, nullable=False, comment="浏览时间")
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True, comment="History ID")
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey(User.id), nullable=False, comment="User ID")
+    news_id: Mapped[int] = mapped_column(Integer, ForeignKey(News.id), nullable=False, comment="News ID")
+    view_time: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, nullable=False, comment="Viewed at")
 
 
     def __repr__(self):

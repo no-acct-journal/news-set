@@ -1,17 +1,17 @@
 from passlib.context import CryptContext
 
 
-# 创建密码加密上下文
+# Password hashing context.
 pwd_context = CryptContext(
      schemes=["bcrypt"],
      deprecated="auto"
 )
 
-# 加密
+# Hash a plain text password.
 def get_password_hash(password: str) -> str:
  return pwd_context.hash(password)
 
 
-# 密码校验
+# Verify a plain text password against a hash.
 def verify_password(plain_password: str, hashed_password: str) -> bool:
  return pwd_context.verify(plain_password, hashed_password)

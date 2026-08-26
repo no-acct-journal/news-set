@@ -7,14 +7,14 @@ from schemas.base import NewsItemBase
 
 class HistoryAddRequest(BaseModel):
     """
-    添加历史记录请求
+    Request body for adding a browsing history entry.
     """
     news_id: int = Field(..., alias="newsId")
 
 
 class HistoryNewsItemResponse(NewsItemBase):
     """
-    浏览历史列表中的新闻项响应
+    News item returned in the browsing history list.
     """
     history_id: int = Field(alias="historyId")
     view_time: datetime = Field(alias="viewTime")
