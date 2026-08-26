@@ -21,6 +21,12 @@ async def add_news_favorite(
         user_id: int,
         news_id: int
 ):
+    existing = await is_news_favorite(db, user_id, news_id)
+    if existing:
+        query = select(Favorite).where(Favorite.user_id == user_id, Favorite.news_id == news_id)
+        result = await db.execute(query)
+        return result.scalar_one()
+
     favorite = Favorite(user_id=user_id, news_id=news_id)
     db.add(favorite)
     await db.commit()

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.db_config import get_db
+from schemas.base import NewsItemBase
 from service import news_cache as news
 
 router = APIRouter(prefix="/api/news", tags=["news"])
@@ -25,13 +26,17 @@ async def get_news_list(
 ):
     offset = (page - 1) * page_size
     new_list = await news.get_news_list(db, category_id, offset, page_size)
+    news_items = [
+        NewsItemBase.model_validate(item).model_dump(by_alias=True, mode="json")
+        for item in new_list
+    ]
     total = await news.get_news_count(db, category_id)
-    has_more = (offset + len(new_list)) < total
+    has_more = (offset + len(news_items)) < total
     return{
         "code" : 200,
         "message": "success",
         "data":{
-            "list" : new_list,
+            "list" : news_items,
             "total" : total,
             "hasMore" : has_more
         }

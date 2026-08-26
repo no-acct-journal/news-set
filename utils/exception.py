@@ -5,9 +5,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from starlette import status
 
-# Development mode returns detailed error data.
-# Production mode should return simplified error data.
-DEBUG_MODE = True
+from config.settings import settings
 
 
 async def http_exception_handler(request: Request, exc: HTTPException):
@@ -41,7 +39,7 @@ async def integrity_error_handler(request: Request, exc: IntegrityError):
 
     # Include detailed error data in development mode.
     error_data = None
-    if DEBUG_MODE:
+    if settings.app_debug:
         error_data = {
             "error_type": "IntegrityError",
             "error_detail": error_msg,
@@ -64,7 +62,7 @@ async def sqlalchemy_error_handler(request: Request, exc: SQLAlchemyError):
     """
     # Include detailed error data in development mode.
     error_data = None
-    if DEBUG_MODE:
+    if settings.app_debug:
         error_data = {
             "error_type": type(exc).__name__,
             "error_detail": str(exc),
@@ -89,7 +87,7 @@ async def general_exception_handler(request: Request, exc: Exception):
     """
     # Include detailed error data in development mode.
     error_data = None
-    if DEBUG_MODE:
+    if settings.app_debug:
         error_data = {
             "error_type": type(exc).__name__,
             "error_detail": str(exc),
