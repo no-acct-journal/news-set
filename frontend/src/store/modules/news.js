@@ -106,6 +106,10 @@ export const useNewsStore = defineStore('news', {
 
         if (response.data?.code === 200) {
           this.newsDetail = response.data.data
+          const listItem = this.newsList.find(item => item.id === this.newsDetail.id)
+          if (listItem) {
+            listItem.views = this.newsDetail.views
+          }
         } else {
           console.error('Failed to get news detail: API returned an error')
         }

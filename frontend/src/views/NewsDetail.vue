@@ -10,6 +10,7 @@
     
     <div class="detail-content" v-if="newsStore.newsDetail.id">
       <div class="title-container">
+        <div class="article-kicker">{{ newsStore.newsDetail.author || 'News Set' }}</div>
         <h1 class="title">{{ newsStore.newsDetail.title }}</h1>
         <van-button 
           class="favorite-btn" 
@@ -20,8 +21,8 @@
       </div>
       
       <div class="info">
-        <span>{{ newsStore.newsDetail.author }}</span>
-        <span>{{ newsStore.newsDetail.publishTime }}</span>
+        <span>{{ formatDateTime(newsStore.newsDetail.publishTime) }}</span>
+        <span class="dot"></span>
         <span>{{ newsStore.newsDetail.views }} views</span>
       </div>
       
@@ -58,13 +59,14 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useNewsStore } from '../store/modules/news'
 import { useHistoryStore } from '../store/modules/history'
 import { useFavoriteStore } from '../store/modules/favorite'
 import { useUserStore } from '../store/user'
 import { showToast } from 'vant'
+import { formatDateTime } from '../utils/date'
 
 const route = useRoute()
 const router = useRouter()
@@ -157,82 +159,107 @@ onMounted(async () => {
 <style scoped>
 .news-detail {
   padding-top: 46px;
-  background-color: #fff;
+  background-color: var(--surface-color);
   min-height: 100vh;
 }
 
 .detail-content {
-  padding: 16px;
+  padding: 22px 18px 36px;
 }
 
 .title-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 12px;
+  position: relative;
+  margin-bottom: 10px;
+  padding-right: 42px;
+}
+
+.article-kicker {
+  margin-bottom: 8px;
+  color: var(--primary-color);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .title {
-  font-size: 22px;
-  font-weight: bold;
-  line-height: 1.4;
+  color: var(--text-color);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.12;
   margin: 0;
-  flex: 1;
 }
 
 .favorite-btn {
-  flex-shrink: 0;
-  margin-left: 10px;
+  position: absolute;
+  top: -6px;
+  right: 0;
   padding: 0;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-color);
   border-radius: 50%;
+  background-color: var(--surface-color);
 }
 
 .favorite-btn.is-favorite {
-  color: #ff9500;
+  color: var(--primary-color);
 }
 
 .info {
+  align-items: center;
   display: flex;
   font-size: 12px;
-  color: #999;
-  margin-bottom: 16px;
+  color: var(--text-color-lighter);
+  font-weight: 600;
+  margin-bottom: 18px;
 }
 
 .info span {
-  margin-right: 12px;
+  margin-right: 8px;
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  background-color: var(--text-color-lighter);
+  border-radius: 50%;
 }
 
 .cover {
-  margin-bottom: 16px;
+  margin: 0 -18px 22px;
+  background-color: var(--muted-surface-color);
 }
 
 .cover img {
   width: 100%;
-  border-radius: 4px;
+  display: block;
 }
 
 .content {
-  font-size: 16px;
-  line-height: 1.8;
-  color: #333;
+  color: var(--text-color);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.72;
 }
 
 .content p {
-  margin-bottom: 16px;
-  text-align: justify;
+  margin-bottom: 18px;
 }
 
 .related-news {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 8px solid #f5f5f5;
+  margin: 30px -18px 0;
+  padding: 20px 18px 0;
+  border-top: 8px solid var(--background-color);
 }
 
 .related-news h3 {
-  font-size: 18px;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 800;
   margin: 0 0 16px;
+  text-transform: uppercase;
 }
 
 .related-list {
@@ -244,6 +271,8 @@ onMounted(async () => {
 .related-item {
   display: flex;
   align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .related-image {
@@ -257,12 +286,15 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .related-title {
-  font-size: 14px;
-  line-height: 1.4;
+  color: var(--text-color);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
   flex: 1;
 }
 </style>

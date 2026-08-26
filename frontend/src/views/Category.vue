@@ -2,7 +2,6 @@
   <div class="category">
     <van-nav-bar 
       title="All Categories" 
-      left-text="Back"
       left-arrow
       @click-left="onClickLeft"
       fixed 
@@ -78,31 +77,34 @@ const getCategoryTranslation = (categoryName) => {
 .category {
   padding-top: 46px;
   padding-bottom: 50px;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
   min-height: 100vh;
 }
 
 .category-container {
-  padding: 16px;
-  background-color: #fff;
-  margin-top: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  background-color: var(--surface-color);
+  border-top: 1px solid var(--border-color);
 }
 
 :deep(.van-grid-item__content) {
-  background-color: #f5f7fa;
-  border-radius: 8px;
-  padding: 20px 0;
+  min-height: 92px;
+  margin: 6px;
+  background-color: var(--muted-surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 18px 0;
 }
 
 :deep(.van-grid-item__icon) {
-  font-size: 28px;
-  color: #1989fa;
+  font-size: 25px;
+  color: var(--primary-color);
 }
 
 :deep(.van-grid-item__text) {
   margin-top: 8px;
-  color: #333;
-  font-size: 14px;
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 800;
 }
 </style>

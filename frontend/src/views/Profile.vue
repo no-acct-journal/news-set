@@ -229,7 +229,7 @@ const showBioDialog = () => {
 <style scoped>
 .profile-page {
   min-height: 100vh;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
 }
 
 .profile-container {

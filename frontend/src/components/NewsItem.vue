@@ -1,15 +1,16 @@
 <template>
   <div class="news-item" @click="goToDetail">
     <div class="news-content">
+      <div class="news-source">{{ news.author || 'News Set' }}</div>
       <h3 class="news-title">{{ news.title }}</h3>
       <p class="news-desc">{{ news.description }}</p>
       <div class="news-info">
-        <span>{{ news.author }}</span>
-        <span>{{ news.publishTime }}</span>
+        <span>{{ formatDateTime(news.publishTime) }}</span>
+        <span class="dot"></span>
         <span>{{ news.views }} views</span>
       </div>
     </div>
-    <div class="news-image">
+    <div class="news-image" v-if="news.image">
       <img :src="news.image" :alt="news.title">
     </div>
   </div>
@@ -18,6 +19,7 @@
 <script setup>
 import { defineProps } from 'vue'
 import { useRouter } from 'vue-router'
+import { formatDateTime } from '../utils/date'
 
 const props = defineProps({
   news: {
@@ -36,22 +38,36 @@ const goToDetail = () => {
 <style scoped>
 .news-item {
   display: flex;
-  padding: 12px 16px;
-  border-bottom: 1px solid #f2f2f2;
-  background-color: #fff;
+  gap: 14px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  cursor: pointer;
 }
 
 .news-content {
   flex: 1;
-  margin-right: 12px;
+  min-width: 0;
+  margin-right: 0;
   overflow: hidden;
 }
 
+.news-source {
+  margin-bottom: 5px;
+  color: var(--primary-color);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
 .news-title {
-  font-size: 16px;
-  font-weight: 500;
-  margin: 0 0 8px;
-  line-height: 1.4;
+  margin: 0 0 6px;
+  color: var(--text-color);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.22;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -60,10 +76,10 @@ const goToDetail = () => {
 }
 
 .news-desc {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 8px;
-  line-height: 1.4;
+  margin: 0 0 10px;
+  color: var(--text-color-light);
+  font-size: 13px;
+  line-height: 1.35;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -72,25 +88,36 @@ const goToDetail = () => {
 }
 
 .news-info {
-  font-size: 12px;
-  color: #999;
+  align-items: center;
+  color: var(--text-color-lighter);
   display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .news-info span {
-  margin-right: 10px;
+  margin-right: 8px;
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  background-color: var(--text-color-lighter);
+  border-radius: 50%;
 }
 
 .news-image {
-  width: 110px;
-  height: 80px;
+  width: 112px;
+  height: 84px;
   flex-shrink: 0;
+  background-color: var(--muted-surface-color);
 }
 
 .news-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 </style>

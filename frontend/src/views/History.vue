@@ -22,8 +22,8 @@
                 <div class="news-title">{{ item.title }}</div>
                 <div class="news-meta">
                   <span>{{ item.author }}</span>
-                  <span>{{ item.publishTime }}</span>
-                  <span>Viewed at: {{ item.viewTime }}</span>
+                  <span>{{ formatDateTime(item.publishTime) }}</span>
+                  <span>Viewed at: {{ formatDateTime(item.viewTime) }}</span>
                 </div>
               </div>
             </div>
@@ -48,6 +48,7 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useHistoryStore } from '../store/modules/history';
 import { showDialog } from 'vant';
+import { formatDateTime } from '../utils/date';
 
 const router = useRouter();
 const historyStore = useHistoryStore();
@@ -136,7 +137,7 @@ onMounted(async () => {
 .history-container {
   padding-top: 46px;
   padding-bottom: 20px;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
   min-height: 100vh;
 }
 
@@ -217,8 +218,9 @@ onMounted(async () => {
 .history-item {
   position: relative;
   margin-bottom: 10px;
-  background-color: #fff;
-  border-radius: 8px;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   overflow: hidden;
 }
 

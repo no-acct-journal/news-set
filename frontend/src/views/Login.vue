@@ -106,7 +106,7 @@ const onClickLeft = () => {
 <style scoped>
 .login-page {
   min-height: 100vh;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
 }
 
 .login-container {
@@ -123,8 +123,9 @@ const onClickLeft = () => {
 
 .login-logo h2 {
   margin-top: 16px;
-  color: #323233;
-  font-size: 22px;
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 800;
 }
 
 .login-form {
@@ -138,7 +139,7 @@ const onClickLeft = () => {
 
 .login-tips {
   text-align: center;
-  color: #969799;
+  color: var(--text-color-lighter);
   font-size: 14px;
   margin-top: 16px;
 }

@@ -22,8 +22,8 @@
                 <div class="news-title">{{ item.title }}</div>
                 <div class="news-meta">
                   <span>{{ item.author }}</span>
-                  <span>{{ item.publishTime }}</span>
-                  <span>Favorited at: {{ item.favoriteTime }}</span>
+                  <span>{{ formatDateTime(item.publishTime) }}</span>
+                  <span>Favorited at: {{ formatDateTime(item.favoriteTime) }}</span>
                 </div>
               </div>
             </div>
@@ -48,6 +48,7 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useFavoriteStore } from '../store/modules/favorite';
 import { showDialog } from 'vant';
+import { formatDateTime } from '../utils/date';
 
 const router = useRouter();
 const favoriteStore = useFavoriteStore();
@@ -111,7 +112,7 @@ onMounted(async () => {
 .favorite-container {
   padding-top: 46px;
   padding-bottom: 20px;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
   min-height: 100vh;
 }
 
@@ -172,8 +173,9 @@ onMounted(async () => {
 .favorite-item {
   position: relative;
   margin-bottom: 10px;
-  background-color: #fff;
-  border-radius: 8px;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   overflow: hidden;
 }
 

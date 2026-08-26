@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 try:
     from dotenv import load_dotenv
@@ -37,9 +37,11 @@ def _get_list(name: str, default: list[str]) -> list[str]:
 @dataclass(frozen=True)
 class Settings:
     app_debug: bool = _get_bool("APP_DEBUG", False)
-    cors_origins: list[str] = _get_list(
-        "CORS_ORIGINS",
-        ["http://127.0.0.1:5173", "http://localhost:5173"],
+    cors_origins: list[str] = field(
+        default_factory=lambda: _get_list(
+            "CORS_ORIGINS",
+            ["http://127.0.0.1:5173", "http://localhost:5173"],
+        )
     )
     cors_allow_credentials: bool = _get_bool("CORS_ALLOW_CREDENTIALS", False)
 

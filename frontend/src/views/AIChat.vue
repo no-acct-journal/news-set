@@ -54,7 +54,7 @@ import DOMPurify from 'dompurify';
 import { aiChatConfig } from '../config/api';
 
 const messages = ref([
-  { role: 'assistant', content: 'Hi, I am your AI assistant. How can I help?' }
+  { role: 'assistant', content: 'Ask me to summarize a story, explain context, or draft a quick brief.' }
 ]);
 const userInput = ref('');
 const messagesContainer = ref(null);
@@ -149,6 +149,7 @@ onMounted(() => {
   padding-top: 46px;
   padding-bottom: 50px;
   box-sizing: border-box;
+  background-color: var(--background-color);
 }
 
 .chat-content {
@@ -161,12 +162,12 @@ onMounted(() => {
 .messages-container {
   flex: 1;
   overflow-y: auto;
-  padding: 10px;
+  padding: 16px;
 }
 
 .message {
-  margin-bottom: 10px;
-  max-width: 80%;
+  margin-bottom: 12px;
+  max-width: 86%;
 }
 
 .user-message {
@@ -178,35 +179,45 @@ onMounted(() => {
 }
 
 .message-content {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 11px 13px;
+  border-radius: 6px;
   word-break: break-word;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .user-message .message-content {
-  background-color: #007aff;
+  background-color: var(--primary-color);
   color: white;
 }
 
 .ai-message .message-content {
-  background-color: #f2f2f2;
-  color: #333;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .input-container {
   display: flex;
-  padding: 10px;
-  border-top: 1px solid #eee;
-  background-color: #fff;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--surface-color);
 }
 
 .chat-input {
   flex: 1;
-  margin-right: 10px;
+  margin-right: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .send-button {
   align-self: flex-end;
+  min-width: 68px;
+  border-radius: 6px;
+  font-weight: 800;
 }
 
 .message-content pre {
@@ -234,7 +245,7 @@ onMounted(() => {
 .typing-indicator span {
   height: 8px;
   width: 8px;
-  background-color: #999;
+  background-color: var(--text-color-lighter);
   border-radius: 50%;
   margin: 0 2px;
   display: inline-block;
@@ -259,7 +270,7 @@ onMounted(() => {
 }
 
 :deep(pre) {
-  background-color: #f0f0f0;
+  background-color: var(--muted-surface-color);
   padding: 10px;
   border-radius: 4px;
   overflow-x: auto;
@@ -267,7 +278,7 @@ onMounted(() => {
 
 :deep(code) {
   font-family: monospace;
-  background-color: #f0f0f0;
+  background-color: var(--muted-surface-color);
   padding: 2px 4px;
   border-radius: 4px;
 }
@@ -281,7 +292,7 @@ onMounted(() => {
 }
 
 :deep(a) {
-  color: #1989fa;
+  color: var(--primary-color);
   text-decoration: none;
 }
 </style>

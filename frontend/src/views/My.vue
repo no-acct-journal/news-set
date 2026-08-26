@@ -1,7 +1,7 @@
 <template>
   <div class="my-container">
     <van-nav-bar title="My" />
-    <div class="user-info" @click="goToProfile" v-if="isLogin">
+    <div class="profile-panel" @click="goToProfile" v-if="isLogin">
       <div class="avatar">
         <van-image
           round
@@ -16,7 +16,7 @@
       </div>
       <van-icon name="arrow" class="arrow-icon" />
     </div>
-    <div class="user-info" v-else>
+    <div class="profile-panel" v-else>
       <div class="avatar">
         <van-image
           round
@@ -27,8 +27,8 @@
       </div>
       <div class="info">
         <div class="username">Not logged in</div>
-        <div class="desc">
-          <van-button type="primary" size="small" @click="goToLogin" style="margin-right: 10px">Login</van-button>
+        <div class="auth-actions">
+          <van-button type="primary" size="small" @click="goToLogin">Login</van-button>
           <van-button type="default" size="small" @click="goToRegister">Register</van-button>
         </div>
       </div>
@@ -138,21 +138,23 @@ onMounted(async () => {
   z-index: 999;
 }
 
-.user-info {
+.profile-panel {
   display: flex;
   align-items: center;
-  padding: 20px 16px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border-radius: 8px;
+  padding: 18px 16px;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   margin: 16px;
   position: relative;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
 }
 
 .arrow-icon {
   position: absolute;
   right: 16px;
-  color: #969799;
+  color: var(--text-color-lighter);
 }
 
 .avatar {
@@ -164,17 +166,41 @@ onMounted(async () => {
 }
 
 .username {
-  font-size: 18px;
-  font-weight: bold;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 800;
   margin-bottom: 4px;
 }
 
 .desc {
   font-size: 14px;
-  color: #999;
+  color: var(--text-color-light);
+}
+
+.auth-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .menu-list {
   margin: 0 16px;
+}
+
+:deep(.van-cell-group--inset) {
+  margin: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+:deep(.van-cell) {
+  align-items: center;
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+:deep(.van-cell::after) {
+  border-color: var(--border-color);
 }
 </style>

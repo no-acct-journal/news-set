@@ -167,7 +167,7 @@ The backend uses:
 | `APP_DEBUG` | No | Set to `true` to include detailed error payloads. Defaults to `false`. |
 | `CORS_ORIGINS` | No | Comma-separated allowed frontend origins. Defaults to local Vite origins. |
 | `CORS_ALLOW_CREDENTIALS` | No | Set to `true` only when credentialed browser requests are required. Defaults to `false`. |
-| `ASYNC_DATABASE_URL` | Yes | SQLAlchemy async PostgreSQL URL, for example `postgresql+asyncpg://postgres:change-me@localhost:5432/news_set`. |
+| `ASYNC_DATABASE_URL` | Yes | SQLAlchemy async PostgreSQL URL, for example `postgresql+asyncpg://postgres:change-me@localhost:5433/news_set`. |
 | `DATABASE_SCHEMA` | No | PostgreSQL schema search path. Defaults to `public`. |
 | `SQLALCHEMY_ECHO` | No | Set to `true` to print SQL statements. Defaults to `false`. |
 | `REDIS_URL` | No | Full Redis URL. Takes priority over host/port settings when set. |

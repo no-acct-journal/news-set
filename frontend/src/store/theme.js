@@ -6,31 +6,35 @@ export const useThemeStore = defineStore('theme', {
     themes: {
       light: {
         name: 'Light',
-        backgroundColor: '#ffffff',
-        textColor: '#333333',
-        primaryColor: '#1989fa',
-        secondaryColor: '#f5f5f5',
+        backgroundColor: '#f5f6f8',
+        textColor: '#161616',
+        primaryColor: '#c1121f',
+        secondaryColor: '#f0f2f5',
+        surfaceColor: '#ffffff',
       },
       dark: {
         name: 'Dark',
         backgroundColor: '#121212',
         textColor: '#ffffff',
-        primaryColor: '#4c8bf5',
+        primaryColor: '#ff4d5a',
         secondaryColor: '#2d2d2d',
+        surfaceColor: '#1d1d1f',
       },
       blue: {
         name: 'Blue',
-        backgroundColor: '#e6f7ff',
-        textColor: '#333333',
-        primaryColor: '#1890ff',
-        secondaryColor: '#bae7ff',
+        backgroundColor: '#f4f7fb',
+        textColor: '#172033',
+        primaryColor: '#2557a7',
+        secondaryColor: '#e7edf7',
+        surfaceColor: '#ffffff',
       },
       green: {
         name: 'Green',
-        backgroundColor: '#f6ffed',
-        textColor: '#333333',
-        primaryColor: '#52c41a',
-        secondaryColor: '#d9f7be',
+        backgroundColor: '#f4f7f5',
+        textColor: '#17231c',
+        primaryColor: '#1f7a4d',
+        secondaryColor: '#e5f0ea',
+        surfaceColor: '#ffffff',
       }
     }
   }),
@@ -60,6 +64,8 @@ export const useThemeStore = defineStore('theme', {
       document.documentElement.style.setProperty('--text-color', theme.textColor);
       document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
       document.documentElement.style.setProperty('--secondary-color', theme.secondaryColor);
+      document.documentElement.style.setProperty('--muted-surface-color', theme.secondaryColor);
+      document.documentElement.style.setProperty('--surface-color', theme.surfaceColor);
     },
     
     initTheme() {

@@ -110,7 +110,7 @@ const changeTheme = (themeId) => {
 }
 
 .theme-item.active .theme-color {
-  border-color: #1989fa;
+  border-color: var(--primary-color);
 }
 
 .theme-name {

@@ -77,12 +77,17 @@ async def get_news_detail(db: AsyncSession, news_id: int):
 
 
 async def increase_news_views(db: AsyncSession, news_id: int):
-    stmt = update(News).where(News.id == news_id).values(views=News.views + 1)
+    stmt = (
+        update(News)
+        .where(News.id == news_id)
+        .values(views=News.views + 1)
+        .returning(News.views)
+    )
     result = await db.execute(stmt)
     await db.commit()
 
-    # Return True when an existing row was updated.
-    return result.rowcount > 0
+    # Return the updated view count, or None when the news row does not exist.
+    return result.scalar_one_or_none()
 
 
 async def get_related_news(db: AsyncSession, news_id: int, category_id: int, limit: int = 5):

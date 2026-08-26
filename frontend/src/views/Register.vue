@@ -126,7 +126,7 @@ const goToLogin = () => {
 <style scoped>
 .register-page {
   min-height: 100vh;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
 }
 
 .register-container {
@@ -143,8 +143,9 @@ const goToLogin = () => {
 
 .register-logo h2 {
   margin-top: 16px;
-  color: #323233;
-  font-size: 22px;
+  color: var(--text-color);
+  font-size: 24px;
+  font-weight: 800;
 }
 
 .register-form {
@@ -159,11 +160,12 @@ const goToLogin = () => {
 .login-link {
   text-align: center;
   margin-top: 16px;
-  color: #969799;
+  color: var(--text-color-lighter);
   font-size: 14px;
 }
 
 .login-link span {
-  color: #1989fa;
+  color: var(--primary-color);
+  font-weight: 800;
 }
 </style>

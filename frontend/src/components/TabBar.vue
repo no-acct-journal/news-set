@@ -28,4 +28,12 @@ setActiveTab()
 </script>
 
 <style scoped>
+:deep(.van-tabbar-item__icon) {
+  font-size: 21px;
+}
+
+:deep(.van-tabbar-item__text) {
+  font-size: 11px;
+  font-weight: 700;
+}
 </style>

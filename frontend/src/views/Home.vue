@@ -1,15 +1,9 @@
 <template>
   <div class="home">
-    <van-nav-bar title="News" fixed />
-    
-    <div class="more-options">
-      <div class="more-tab" @click="goToCategory">
-        More <van-icon name="arrow" />
-      </div>
-    </div>
+    <van-nav-bar title="News Set" right-text="Sections" fixed :border="false" @click-right="goToCategory" />
     
     <div class="category-tabs">
-      <van-tabs v-model:active="activeTab" sticky swipeable animated @change="onTabChange">
+      <van-tabs v-model:active="activeTab" sticky swipeable animated :offset-top="46" @change="onTabChange">
         <van-tab 
           v-for="category in displayCategories" 
           :key="category.id" 
@@ -38,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed, onBeforeUnmount } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useNewsStore } from '../store/modules/news'
 import { useRouter, useRoute } from 'vue-router'
 import NewsItem from '../components/NewsItem.vue'
@@ -48,7 +42,6 @@ const newsStore = useNewsStore()
 const router = useRouter()
 const route = useRoute()
 const activeTab = ref(0)
-const tabsTop = ref(0)
 
 const displayCategories = computed(() => {
   return newsStore.categories.filter(category => category.name !== 'More');
@@ -74,17 +67,6 @@ const getCategoryTranslation = (categoryName) => {
 
 const goToCategory = () => {
   router.push('/category')
-}
-
-const updateTabsPosition = () => {
-  const tabsElement = document.querySelector('.van-tabs__wrap')
-  if (tabsElement) {
-    tabsTop.value = tabsElement.getBoundingClientRect().top
-  }
-}
-
-const handleScroll = () => {
-  updateTabsPosition()
 }
 
 const syncCategoryFromRoute = async () => {
@@ -113,12 +95,6 @@ onMounted(async () => {
     await newsStore.getNewsList(true)
   }
 
-  setTimeout(updateTabsPosition, 300)
-  window.addEventListener('scroll', handleScroll)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll)
 })
 
 watch(
@@ -147,75 +123,42 @@ const onLoad = () => {
 .home {
   padding-top: 46px;
   padding-bottom: 50px;
-  background-color: #f7f8fa;
+  background-color: var(--background-color);
   min-height: 100vh;
 }
 
 .category-tabs {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   position: relative;
 }
 
 :deep(.van-tabs__wrap) {
-  background-color: #fff;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(18px);
 }
 
 :deep(.van-tab) {
-  font-size: 14px;
+  flex: none;
+  padding: 0 14px;
+  color: var(--text-color-light);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 :deep(.van-tab--active) {
-  font-weight: bold;
-  color: #1989fa;
+  color: var(--text-color);
 }
 
-.more-options {
-  position: fixed;
-  right: 0;
-  background-color: #fff;
-  padding: 0;
-  border-radius: 4px 0 0 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  top: v-bind('tabsTop + "px"');
-  height: 44px;
-  display: flex;
-  align-items: center;
+:deep(.van-tabs__line) {
+  width: 22px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 0;
 }
 
-.more-tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #1989fa;
-  font-weight: bold;
-  height: 100%;
-  padding: 0 10px;
-}
-
-.dropdown-menu {
-  position: absolute;
-  right: 15px;
-  top: 40px;
-  min-width: 100px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  z-index: 999;
-}
-
-.dropdown-item {
-  padding: 10px 15px;
-  text-align: center;
-  border-bottom: 1px solid #f5f5f5;
-}
-
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.dropdown-item:hover {
-  background-color: #f5f5f5;
+:deep(.van-list) {
+  background-color: var(--surface-color);
 }
 </style>
