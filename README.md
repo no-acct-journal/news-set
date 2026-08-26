@@ -30,7 +30,21 @@ cp .env.example .env
 
 Update `.env` with your PostgreSQL and Redis values.
 
-4. Start the API.
+4. Initialize the database schema.
+
+```bash
+psql "postgresql://user:password@localhost:5432/news_set" -f database/schema.sql
+```
+
+For `psql`, use a regular PostgreSQL URL. The application uses the async SQLAlchemy form, such as `postgresql+asyncpg://...`, in `ASYNC_DATABASE_URL`.
+
+5. Optional: load example data for local development.
+
+```bash
+psql "postgresql://user:password@localhost:5432/news_set" -f database/seed.example.sql
+```
+
+6. Start the API.
 
 ```bash
 uvicorn main:app --reload
@@ -54,4 +68,4 @@ The API docs are available at `http://127.0.0.1:8000/docs`.
 
 ## Notes
 
-This project expects the PostgreSQL tables to already exist. Add migrations or a schema SQL file before using it as a full production-ready template.
+The SQL files in `database/` are intended for local development and simple deployments. For larger deployments, add a migration tool such as Alembic.
