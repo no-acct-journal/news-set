@@ -29,30 +29,30 @@
 
 ---
 
-## 项目简介
+## Overview
 
-**News Set** 是一个前后端分离的新闻浏览应用。后端基于 **FastAPI** 提供新闻、用户、收藏、历史记录和 AI 问答接口；前端基于 **Vue 3 + Vite + Vant** 构建移动端新闻阅读体验。
+**News Set** is a full-stack news browsing application. The backend uses **FastAPI** to provide news, user, favorite, history, and AI chat APIs. The frontend uses **Vue 3 + Vite + Vant** to deliver a mobile-first news reading experience.
 
-> 定位：一个适合展示全栈能力的新闻类 App 项目，覆盖用户认证、内容浏览、收藏历史、缓存、数据库和 AI 服务代理。
-
----
-
-## 功能亮点
-
-- 新闻分类、分页列表、详情阅读
-- 新闻阅读量统计
-- 用户注册、登录、资料更新、密码修改
-- 收藏新闻、取消收藏、清空收藏
-- 浏览历史记录、删除历史、清空历史
-- Redis 缓存新闻分类、列表、详情和相关新闻
-- AI Chat 后端代理，前端不暴露 AI provider key
-- Vue 3 移动端 UI，风格对标北美主流新闻浏览 App
-- Docker Compose 一键启动 PostgreSQL 和 Redis
-- Windows PowerShell 一键开发启动脚本
+> Goal: a portfolio-ready full-stack news app covering authentication, content browsing, favorites, reading history, caching, database integration, and an AI service proxy.
 
 ---
 
-## 技术栈
+## Features
+
+- News categories, paginated feeds, and article detail pages
+- Article view count tracking
+- User registration, login, profile update, and password update
+- Add, remove, list, and clear favorites
+- Add, list, delete, and clear browsing history
+- Redis caching for categories, feeds, article details, and related news
+- AI Chat backend proxy so provider keys stay out of frontend code
+- Mobile UI styled after mainstream North American news apps
+- Docker Compose setup for PostgreSQL and Redis
+- Windows PowerShell one-command development startup
+
+---
+
+## Tech Stack
 
 | Layer | Tech |
 | --- | --- |
@@ -66,9 +66,9 @@
 
 ---
 
-## 架构说明
+## Architecture
 
-当前项目的开发环境是：
+The current development setup is:
 
 ```text
 Frontend Vue  -> runs locally with npm
@@ -77,11 +77,11 @@ PostgreSQL    -> runs in Docker
 Redis         -> runs in Docker
 ```
 
-Docker 目前只负责本地依赖服务，不负责运行前端和后端代码。
+Docker currently provides local dependency services only. The frontend and backend application code run on the host machine during development.
 
 ---
 
-## 项目结构
+## Project Structure
 
 ```text
 news-set/
@@ -101,36 +101,36 @@ news-set/
 
 ---
 
-## 快速启动
+## Quick Start
 
-### 环境要求
+### Requirements
 
 - Python 3.10+
 - Node.js 18+ or 20+
 - Docker Desktop
 - Windows PowerShell
 
-### 一键启动
+### One-Command Startup
 
-在项目根目录运行：
+Run this from the project root:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\start-dev.ps1
 ```
 
-脚本会自动完成：
+The script will:
 
-- 创建 `.env`
-- 创建 `frontend/.env`
-- 启动 Docker PostgreSQL 和 Redis
-- 创建 Python virtual environment
-- 安装后端依赖
-- 安装前端依赖
-- 初始化数据库表
-- 导入示例新闻数据
-- 启动后端和前端
+- create `.env`
+- create `frontend/.env`
+- start Docker PostgreSQL and Redis
+- create the Python virtual environment
+- install backend dependencies
+- install frontend dependencies
+- initialize database tables
+- load example news data
+- start the backend and frontend
 
-启动后访问：
+After startup:
 
 | Service | URL |
 | --- | --- |
@@ -139,44 +139,44 @@ powershell -ExecutionPolicy Bypass -File .\start-dev.ps1
 
 ---
 
-## 手动启动
+## Manual Startup
 
-### 1. 启动 PostgreSQL 和 Redis
+### 1. Start PostgreSQL and Redis
 
 ```powershell
 docker compose up -d postgres redis
 ```
 
-PostgreSQL 对外端口是 `5433`，避免和本机 PostgreSQL 的默认 `5432` 冲突。
+PostgreSQL is exposed on host port `5433` to avoid conflicts with a local PostgreSQL installation on the default `5432` port.
 
-### 2. 创建环境文件
+### 2. Create Environment Files
 
 ```powershell
 Copy-Item .env.example .env
 Copy-Item frontend/.env.example frontend/.env
 ```
 
-### 3. 安装后端依赖
+### 3. Install Backend Dependencies
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-### 4. 初始化数据库
+### 4. Initialize the Database
 
 ```powershell
 Get-Content -Raw database/schema.sql | docker compose exec -T postgres psql -U postgres -d news_set
 Get-Content -Raw database/seed.example.sql | docker compose exec -T postgres psql -U postgres -d news_set
 ```
 
-### 5. 启动后端
+### 5. Start the Backend
 
 ```powershell
 .\.venv\Scripts\python.exe -m uvicorn main:app --reload
 ```
 
-### 6. 启动前端
+### 6. Start the Frontend
 
 ```powershell
 cd frontend
@@ -186,7 +186,7 @@ npm run dev
 
 ---
 
-## API 模块
+## API Modules
 
 | Module | Prefix | Description |
 | --- | --- | --- |
@@ -198,7 +198,7 @@ npm run dev
 
 ---
 
-## 环境变量
+## Environment Variables
 
 ### Backend
 
@@ -221,7 +221,7 @@ npm run dev
 
 ---
 
-## 前端命令
+## Frontend Commands
 
 ```powershell
 cd frontend
@@ -230,26 +230,26 @@ npm run build
 npm run preview
 ```
 
-构建产物位于：
+Build output is written to:
 
 ```text
 frontend/dist/
 ```
 
-`frontend/dist/` 和 `frontend/node_modules/` 不会提交到 Git。
+`frontend/dist/` and `frontend/node_modules/` are intentionally ignored by Git.
 
 ---
 
-## Docker 说明
+## Docker Notes
 
-`docker-compose.yml` 会启动：
+`docker-compose.yml` starts:
 
 | Service | Container | Host Port |
 | --- | --- | --- |
 | PostgreSQL | `news_set_postgres` | `5433` |
 | Redis | `news_set_redis` | `6379` |
 
-开发默认数据库账号：
+Default development database credentials:
 
 ```text
 user: postgres
@@ -257,13 +257,13 @@ password: change-me
 database: news_set
 ```
 
-这是本地开发默认密码，不是生产密码。生产环境请使用服务器环境变量或 secret 管理真实凭据。
+This is a local development password, not a production secret. Use server environment variables or secret management for production credentials.
 
 ---
 
-## 注意事项
+## Notes
 
-- 不要提交 `.env`。
-- `database/seed.example.sql` 可以重复执行。
-- 如果 Docker PostgreSQL 密码或数据卷状态混乱，开发环境可运行 `docker compose down -v` 重置数据。
-- 当前仓库没有声明开源许可证；如需开源分发，请先添加 `LICENSE`。
+- Do not commit `.env` files.
+- `database/seed.example.sql` is safe to run more than once.
+- If the Docker PostgreSQL password or volume state becomes inconsistent, run `docker compose down -v` in development to reset the database volume.
+- This repository does not currently declare an open-source license. Add a `LICENSE` file before distributing it as open source.

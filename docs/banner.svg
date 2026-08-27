@@ -1,27 +1,27 @@
 <svg width="1200" height="420" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1200" height="420" rx="28" fill="#F5F6F8"/>
-  <rect x="44" y="44" width="1112" height="332" rx="22" fill="#FFFFFF" stroke="#E5E7EB"/>
-  <rect x="84" y="82" width="82" height="14" rx="7" fill="#C1121F"/>
-  <text x="84" y="154" fill="#161616" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="58" font-weight="800">News Set</text>
-  <text x="86" y="204" fill="#5F6368" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">A full-stack news reading app powered by FastAPI, Vue 3, PostgreSQL, Redis, and AI chat.</text>
+  <rect x="48" y="48" width="1104" height="324" rx="22" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <rect x="88" y="88" width="82" height="14" rx="7" fill="#C1121F"/>
+  <text x="88" y="158" fill="#161616" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="58" font-weight="800">News Set</text>
+  <text x="90" y="208" fill="#4B5563" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">FastAPI + Vue news reader with cache, auth, and AI chat.</text>
   <g>
-    <rect x="84" y="248" width="124" height="36" rx="8" fill="#161616"/>
-    <text x="108" y="272" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">FastAPI</text>
-    <rect x="222" y="248" width="102" height="36" rx="8" fill="#C1121F"/>
-    <text x="249" y="272" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Vue 3</text>
-    <rect x="338" y="248" width="138" height="36" rx="8" fill="#2557A7"/>
-    <text x="361" y="272" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">PostgreSQL</text>
-    <rect x="490" y="248" width="96" height="36" rx="8" fill="#1F7A4D"/>
-    <text x="520" y="272" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Redis</text>
+    <rect x="88" y="252" width="124" height="36" rx="8" fill="#161616"/>
+    <text x="112" y="276" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">FastAPI</text>
+    <rect x="226" y="252" width="102" height="36" rx="8" fill="#C1121F"/>
+    <text x="253" y="276" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Vue 3</text>
+    <rect x="342" y="252" width="138" height="36" rx="8" fill="#2557A7"/>
+    <text x="365" y="276" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">PostgreSQL</text>
+    <rect x="494" y="252" width="96" height="36" rx="8" fill="#1F7A4D"/>
+    <text x="524" y="276" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">Redis</text>
   </g>
-  <g transform="translate(760 90)">
-    <rect width="300" height="218" rx="18" fill="#F7F8FA" stroke="#E5E7EB"/>
-    <rect x="24" y="24" width="168" height="12" rx="6" fill="#C1121F"/>
-    <rect x="24" y="58" width="230" height="18" rx="4" fill="#161616"/>
-    <rect x="24" y="88" width="198" height="12" rx="4" fill="#8A8F98"/>
-    <rect x="24" y="122" width="86" height="64" rx="8" fill="#D6DAE1"/>
-    <rect x="126" y="126" width="128" height="12" rx="4" fill="#161616"/>
-    <rect x="126" y="150" width="104" height="10" rx="4" fill="#8A8F98"/>
-    <rect x="126" y="174" width="72" height="10" rx="4" fill="#C1121F"/>
+  <g transform="translate(800 92)">
+    <rect width="270" height="206" rx="18" fill="#F7F8FA" stroke="#E5E7EB"/>
+    <rect x="24" y="24" width="150" height="12" rx="6" fill="#C1121F"/>
+    <rect x="24" y="58" width="212" height="18" rx="4" fill="#161616"/>
+    <rect x="24" y="88" width="178" height="12" rx="4" fill="#8A8F98"/>
+    <rect x="24" y="122" width="76" height="56" rx="8" fill="#D6DAE1"/>
+    <rect x="118" y="126" width="118" height="12" rx="4" fill="#161616"/>
+    <rect x="118" y="150" width="96" height="10" rx="4" fill="#8A8F98"/>
+    <rect x="118" y="174" width="72" height="10" rx="4" fill="#C1121F"/>
   </g>
 </svg>
