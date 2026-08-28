@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import pinia from '../store'
+import { useUserStore } from '../store/user'
 
 const routes = [
   {
@@ -11,7 +13,8 @@ const routes = [
     component: () => import('../views/Login.vue'),
     meta: {
       title: '登录',
-      keepAlive: false
+      keepAlive: false,
+      public: true
     }
   },
   {
@@ -20,7 +23,8 @@ const routes = [
     component: () => import('../views/Register.vue'),
     meta: {
       title: '注册',
-      keepAlive: false
+      keepAlive: false,
+      public: true
     }
   },
   {
@@ -115,8 +119,22 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 设置页面标题
   document.title = to.meta.title || '新闻资讯'
-  
-  // 直接允许访问所有页面
+
+  const userStore = useUserStore(pinia)
+
+  if (!to.meta.public && !userStore.getLoginStatus) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+    return
+  }
+
+  if (to.meta.public && userStore.getLoginStatus) {
+    next('/home')
+    return
+  }
+
   next()
 })
 

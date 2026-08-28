@@ -56,8 +56,8 @@ app.use(Popup)
 app.use(Radio)
 app.use(RadioGroup)
 
-app.use(router)
 app.use(pinia)
+app.use(router)
 
 app.mount('#app')
 

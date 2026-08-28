@@ -31,7 +31,7 @@
 
 ## Overview
 
-**News Set** is a full-stack news browsing application. The backend uses **FastAPI** to provide news, user, favorite, history, and AI chat APIs. The frontend uses **Vue 3 + Vite + Vant** to deliver a mobile-first news reading experience.
+**News Set** is a full-stack news browsing application. The backend uses **FastAPI** to provide news, user, favorite, history, and AI chat APIs. The frontend is a **Vue 3 + Vite** single-page app built with **Vant**, providing a mobile-first reading flow with category feeds, article details, favorites, browsing history, profile settings, theme/language preferences, and AI chat.
 
 > Goal: a portfolio-ready full-stack news app covering authentication, content browsing, favorites, reading history, caching, database integration, and an AI service proxy.
 
@@ -63,6 +63,12 @@
 | Auth | Token-based auth, passlib, bcrypt |
 | AI | OpenAI-compatible chat completions proxy |
 | DevOps | Docker Compose, PowerShell startup script |
+
+---
+
+## Frontend Overview
+
+The frontend lives in `frontend/` and is organized around route-level Vue views, reusable Vant-based components, and Pinia stores for user state, news feeds, favorites, history, theme, and language settings. It communicates with the backend through `VITE_API_BASE_URL`, while AI requests are proxied through the backend so provider credentials are never exposed in browser code.
 
 ---
 
