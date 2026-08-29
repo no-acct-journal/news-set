@@ -43,6 +43,10 @@ class Settings:
             ["http://127.0.0.1:5173", "http://localhost:5173"],
         )
     )
+    cors_origin_regex: str | None = os.getenv(
+        "CORS_ORIGIN_REGEX",
+        r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+    )
     cors_allow_credentials: bool = _get_bool("CORS_ALLOW_CREDENTIALS", False)
 
     database_url: str = _require_env("ASYNC_DATABASE_URL")
